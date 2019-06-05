@@ -7,6 +7,7 @@
 package ec.edu.ups.vista;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Usuario
+ * @author José Quinde
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
@@ -27,6 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private String ruta;
     public VentanaPrincipal()  {
         initComponents();
+        
     }
     public void IngresoListas() throws RutaNoExistenteException{
         ruta=txtRuta.getText();
@@ -98,8 +100,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblModificacion = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
         lblTamaño = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuNuevo = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Listar Directorios");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "RUTA", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
@@ -120,7 +127,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +136,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(txtRuta))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ARCHIVOS", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -237,12 +244,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(lblRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,9 +260,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jMenu1.setText("Archivo");
+
+        menuNuevo.setText("Nuevo");
+        menuNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuNuevoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuNuevo);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Salir");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -263,21 +286,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -288,7 +311,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
             // TODO add your handling code here:
         try{
-            IngresoListas();
+            IngresoListas();                  
         }catch(RutaNoExistenteException ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
         }
@@ -298,6 +321,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void lstDirectoriosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDirectoriosValueChanged
         // TODO add your handling code here:
+      
         String seleccion = lstDirectorios.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -311,12 +335,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblModificacion.setText(simpleDateFormat.format( fechaModificacion ));
         long length = tamañoDirectorio(fichero);
 	lblTamaño.setText(Math.round(Math.ceil(length/1024.0) )+ " Kb");		 
-    
+        lstArchivos.clearSelection();
+        lstOcultos.clearSelection();
     
     }//GEN-LAST:event_lstDirectoriosValueChanged
 
     private void lstArchivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstArchivosValueChanged
         // TODO add your handling code here:
+        lstDirectorios.clearSelection();
+        lstOcultos.clearSelection();
         String seleccion = lstArchivos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -330,12 +357,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblModificacion.setText(simpleDateFormat.format( fechaModificacion ));
 
 	lblTamaño.setText(Math.round(Math.ceil(fichero.length()/1024.0) )+ " Kb");		 
-    
+        lstDirectorios.clearSelection();
+        lstOcultos.clearSelection();
     
     }//GEN-LAST:event_lstArchivosValueChanged
 
     private void lstOcultosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstOcultosValueChanged
         // TODO add your handling code here:
+        
         String seleccion = lstOcultos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -349,9 +378,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblModificacion.setText(simpleDateFormat.format( fechaModificacion ));
 
 	lblTamaño.setText(Math.round(Math.ceil(fichero.length()/1024.0) )+ " Kb");		 
-    
+        lstArchivos.clearSelection();
+        lstDirectorios.clearSelection();
     
     }//GEN-LAST:event_lstOcultosValueChanged
+
+    private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
+        // TODO add your handling code here:
+        if (lstDirectorios.getSelectedIndex()!=-1){
+             String seleccion = lstDirectorios.getSelectedValue().toString();
+            String rutaCompleta=ruta+"\\"+seleccion;
+            String nombreArchivo=JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+             String rutaCrear=rutaCompleta+"\\"+nombreArchivo;
+        
+        File archivoNuevo=new File(rutaCrear);
+        if(!archivoNuevo.exists()){
+            try{
+            archivoNuevo.createNewFile();
+            JOptionPane.showConfirmDialog(rootPane,"El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear);
+            }catch(IOException ex){
+                System.out.println("Error al crear el archivo");
+                }    
+        }
+        }else{
+        String nombreArchivo=JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+        String rutaCrear=ruta+"\\"+nombreArchivo;
+        
+        File archivoNuevo=new File(rutaCrear);
+        if(!archivoNuevo.exists()){
+            try{
+            archivoNuevo.createNewFile();
+            JOptionPane.showConfirmDialog(rootPane,"El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear);
+            }catch(IOException ex){
+                System.out.println("Error al crear el archivo");
+                }    
+        }
+        } 
+    }//GEN-LAST:event_menuNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,8 +459,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -409,6 +474,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JList lstArchivos;
     private javax.swing.JList lstDirectorios;
     private javax.swing.JList lstOcultos;
+    private javax.swing.JMenuItem menuNuevo;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }
