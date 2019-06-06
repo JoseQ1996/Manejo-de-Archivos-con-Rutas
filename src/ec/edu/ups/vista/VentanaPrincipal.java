@@ -103,6 +103,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuNuevo = new javax.swing.JMenuItem();
+        MenuRenombrar = new javax.swing.JMenuItem();
+        menuNuevoArchivo = new javax.swing.JMenuItem();
+        menuEliminar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -265,6 +268,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
+        menuNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menuNuevo.setText("Nuevo");
         menuNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,6 +276,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuNuevo);
+
+        MenuRenombrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        MenuRenombrar.setText("Renombrar");
+        MenuRenombrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuRenombrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuRenombrar);
+
+        menuNuevoArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
+        menuNuevoArchivo.setText("Nueva Carpeta");
+        menuNuevoArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuNuevoArchivoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuNuevoArchivo);
+
+        menuEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        menuEliminar.setText("Eliminar");
+        menuEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEliminarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuEliminar);
 
         jMenuBar1.add(jMenu1);
 
@@ -321,7 +352,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void lstDirectoriosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDirectoriosValueChanged
         // TODO add your handling code here:
-      
+      if(!lstDirectorios.isSelectionEmpty()){
         String seleccion = lstDirectorios.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -337,13 +368,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	lblTamaño.setText(Math.round(Math.ceil(length/1024.0) )+ " Kb");		 
         lstArchivos.clearSelection();
         lstOcultos.clearSelection();
-    
+      }
     }//GEN-LAST:event_lstDirectoriosValueChanged
 
     private void lstArchivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstArchivosValueChanged
         // TODO add your handling code here:
-        lstDirectorios.clearSelection();
-        lstOcultos.clearSelection();
+         if(!lstArchivos.isSelectionEmpty()){
         String seleccion = lstArchivos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -359,12 +389,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	lblTamaño.setText(Math.round(Math.ceil(fichero.length()/1024.0) )+ " Kb");		 
         lstDirectorios.clearSelection();
         lstOcultos.clearSelection();
-    
+         }
     }//GEN-LAST:event_lstArchivosValueChanged
 
     private void lstOcultosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstOcultosValueChanged
         // TODO add your handling code here:
-        
+         if(!lstOcultos.isSelectionEmpty()){
         String seleccion = lstOcultos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
         lblRuta.setText(rutaCompleta);
@@ -380,11 +410,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	lblTamaño.setText(Math.round(Math.ceil(fichero.length()/1024.0) )+ " Kb");		 
         lstArchivos.clearSelection();
         lstDirectorios.clearSelection();
-    
+         }
     }//GEN-LAST:event_lstOcultosValueChanged
 
     private void menuNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoActionPerformed
-        // TODO add your handling code here:
+       //Permite crear un nuevo Archivo en el directorio seleccionado
         if (lstDirectorios.getSelectedIndex()!=-1){
              String seleccion = lstDirectorios.getSelectedValue().toString();
             String rutaCompleta=ruta+"\\"+seleccion;
@@ -395,7 +425,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(!archivoNuevo.exists()){
             try{
             archivoNuevo.createNewFile();
-            JOptionPane.showConfirmDialog(rootPane,"El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear);
+           JOptionPane.showMessageDialog(null, "El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear, "Archivo Creado", JOptionPane.DEFAULT_OPTION);        
             }catch(IOException ex){
                 System.out.println("Error al crear el archivo");
                 }    
@@ -408,13 +438,114 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(!archivoNuevo.exists()){
             try{
             archivoNuevo.createNewFile();
-            JOptionPane.showConfirmDialog(rootPane,"El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear);
+            JOptionPane.showMessageDialog(null, "El archivo "+nombreArchivo+" fue creado en la ruta "+rutaCrear, "Archivo Creado", JOptionPane.DEFAULT_OPTION);
             }catch(IOException ex){
                 System.out.println("Error al crear el archivo");
                 }    
         }
         } 
+          try{
+            IngresoListas();                  
+        }catch(RutaNoExistenteException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_menuNuevoActionPerformed
+
+    private void MenuRenombrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuRenombrarActionPerformed
+       //Permite renombrar una carpeta o un arhivo en el directorio seleccionado
+        String archivoSeleccionado=null;
+        boolean isValid=true;
+        if(!lstArchivos.isSelectionEmpty()){
+            archivoSeleccionado=lstArchivos.getSelectedValue().toString();
+        }else if (!lstDirectorios.isSelectionEmpty()){
+            archivoSeleccionado=lstDirectorios.getSelectedValue().toString();
+        }else if (!lstOcultos.isSelectionEmpty()){
+            archivoSeleccionado=lstOcultos.getSelectedValue().toString();
+        }
+        else{
+            isValid=false;
+            JOptionPane.showMessageDialog(this, "Seleccione un archivo o carpeta");
+        }
+        if(isValid==true){
+        String rutaArchivoSeleccionado=ruta+"\\"+archivoSeleccionado;
+        File archivo=new File(rutaArchivoSeleccionado);
+        String nombreArchivo=JOptionPane.showInputDialog("Ingrese el nuevo nombre del archivo");
+        String rutaNuevoArchivo=ruta+"\\"+nombreArchivo;
+        File archivoNuevo=new File(rutaNuevoArchivo);
+        if (archivoNuevo.exists()) {
+            JOptionPane.showMessageDialog(this, "Ya existe el archivo con ese nombre");
+        }else{
+        archivo.renameTo(archivoNuevo);
+        }
+        try{
+            IngresoListas();                  
+        }catch(RutaNoExistenteException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
+        }
+        }
+    }//GEN-LAST:event_MenuRenombrarActionPerformed
+
+    private void menuNuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevoArchivoActionPerformed
+       //Permite crear una nueva carpeta en el directorio seleccionado
+         if (lstDirectorios.getSelectedIndex()!=-1){
+             String seleccion = lstDirectorios.getSelectedValue().toString();
+            String rutaCompleta=ruta+"\\"+seleccion;
+            String nombreArchivo=JOptionPane.showInputDialog("Ingrese el nombre de la carpeta");
+             String rutaCrear=rutaCompleta+"\\"+nombreArchivo;
+        
+        File archivoNuevo=new File(rutaCrear);
+        if(!archivoNuevo.exists()){
+            archivoNuevo.mkdir();
+                 JOptionPane.showMessageDialog(null, "la carpeta "+nombreArchivo+" fue creado en la ruta "+rutaCrear, "Carpeta Creado", JOptionPane.DEFAULT_OPTION);    
+        }else{
+            JOptionPane.showMessageDialog(this, "Ya existe una carpeta con ese nombre");
+        }
+        }else{
+        String nombreArchivo=JOptionPane.showInputDialog("Ingrese el nombre de la carpeta");
+        String rutaCrear=ruta+"\\"+nombreArchivo;
+        
+        File archivoNuevo=new File(rutaCrear);
+        if(!archivoNuevo.exists()){
+            archivoNuevo.mkdir();
+            JOptionPane.showMessageDialog(null, "La Carpeta "+nombreArchivo+" fue creado en la ruta "+rutaCrear, "Carpeta Creado", JOptionPane.DEFAULT_OPTION);
+        }else{
+            JOptionPane.showMessageDialog(this, "Ya existe una carpeta con ese nombre");
+        }
+        } 
+          try{
+            IngresoListas();                  
+        }catch(RutaNoExistenteException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_menuNuevoArchivoActionPerformed
+
+    private void menuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliminarActionPerformed
+        //Permite eliminar una carpeta o archivoen el directorio seleccionado
+        String archivoSeleccionado=null;
+        boolean isValid=true;
+        if(!lstArchivos.isSelectionEmpty()){
+            archivoSeleccionado=lstArchivos.getSelectedValue().toString();
+        }else if (!lstDirectorios.isSelectionEmpty()){
+            archivoSeleccionado=lstDirectorios.getSelectedValue().toString();
+        }else if (!lstOcultos.isSelectionEmpty()){
+            archivoSeleccionado=lstOcultos.getSelectedValue().toString();
+        }
+        else{
+            isValid=false;
+            JOptionPane.showMessageDialog(this, "Seleccione un archivo o carpeta");
+        }
+        if(isValid==true){
+        String rutaArchivoSeleccionado=ruta+"\\"+archivoSeleccionado;
+        File archivo=new File(rutaArchivoSeleccionado);
+        archivo.delete();
+        
+        try{
+            IngresoListas();                  
+        }catch(RutaNoExistenteException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
+        }
+        }
+    }//GEN-LAST:event_menuEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,6 +583,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuRenombrar;
     private javax.swing.JButton btnListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -474,7 +606,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JList lstArchivos;
     private javax.swing.JList lstDirectorios;
     private javax.swing.JList lstOcultos;
+    private javax.swing.JMenuItem menuEliminar;
     private javax.swing.JMenuItem menuNuevo;
+    private javax.swing.JMenuItem menuNuevoArchivo;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables
 }
