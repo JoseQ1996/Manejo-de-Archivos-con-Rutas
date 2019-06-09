@@ -25,11 +25,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    //Declaracion de variables
     private String ruta;
+    private String rutaAnterior;
+    private String seleccionAnterior;
     public VentanaPrincipal()  {
         initComponents();
         
     }
+    /**
+     * Metodo que ingresa los datos en la lista
+     * @throws RutaNoExistenteException 
+     */
     public void IngresoListas() throws RutaNoExistenteException{
         ruta=txtRuta.getText();
         File directorio=new File(ruta);
@@ -61,6 +68,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
            throw new RutaNoExistenteException(); 
         }
     }
+    /**
+     * Este metodo nos devuelve el valor total de las carpetas listando todos los archivos que posee ;
+     * @param directory
+     * @return 
+     */
     public static long tamañoDirectorio(File directory) {
     long length = 0;
     for (File file : directory.listFiles()) {
@@ -70,8 +82,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             length += tamañoDirectorio(file);
     }
     return length;
-}
-    
+}   
+    /**
+     *Metodo que elimina un directorio con contenido
+     * @param archivoEliminar 
+     */
+    private static void eliminarDirectorio(File archivoEliminar) { 
+    if (archivoEliminar.isDirectory()) { 
+        for (File archivo: archivoEliminar.listFiles()) { 
+            eliminarDirectorio(archivo);  } 
+    } 
+    archivoEliminar.delete(); 
+} 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -369,7 +392,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
       if(!lstDirectorios.isSelectionEmpty()){
         String seleccion = lstDirectorios.getSelectedValue().toString();
-        String rutaCompleta=ruta+"\\"+seleccion;
+        String rutaCompleta=ruta+"\\"+seleccion;       
         lblRuta.setText(rutaCompleta);
         File fichero = new File(rutaCompleta);
         long modificacion=fichero.lastModified();
@@ -383,12 +406,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	lblTamaño.setText(Math.round(Math.ceil(length/1024.0) )+ " Kb");		 
         lstArchivos.clearSelection();
         lstOcultos.clearSelection();
-      }
+      
       lstDirectorios.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent e) {
       if(e.getClickCount()==2){
          String ruta1=txtRuta.getText();
+          if(!lstDirectorios.isSelectionEmpty()){
          String seleccion=lstDirectorios.getSelectedValue().toString();
+         seleccionAnterior=seleccion;
          String rutaFinal=ruta1+"\\"+seleccion;
          txtRuta.setText(rutaFinal);
           try{
@@ -396,10 +421,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }catch(RutaNoExistenteException ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
         }
-         
+          }
        }
  }
       });
+      }
     }//GEN-LAST:event_lstDirectoriosValueChanged
 
     private void lstArchivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstArchivosValueChanged
@@ -568,7 +594,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(isValid==true){
         String rutaArchivoSeleccionado=ruta+"\\"+archivoSeleccionado;
         File archivo=new File(rutaArchivoSeleccionado);
-        archivo.delete();
+        eliminarDirectorio(archivo);
         
         try{
             IngresoListas();                  
@@ -579,8 +605,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEliminarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        
+        // Este boton regresa un directorio atras desde el actual
+       String ruta2=txtRuta.getText();
+       char c;
+       String palabra="";
+       for(int i=ruta2.length()-1;i>0;i--){
+           c=ruta2.charAt(i);
+           palabra=c+palabra;
+           if(c=='\\'){
+           rutaAnterior=ruta2.replace(palabra, "");
+           i=0;
+       }
+       }
+        txtRuta.setText(rutaAnterior);
+        try{
+            IngresoListas();                  
+        }catch(RutaNoExistenteException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error Exception",JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
