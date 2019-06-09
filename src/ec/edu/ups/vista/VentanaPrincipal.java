@@ -378,7 +378,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         
-            // TODO add your handling code here:
+            //Boton que manda a llamar al metodo de ingresar listas para listar los archivos de la ruta
         try{
             IngresoListas();                  
         }catch(RutaNoExistenteException ex){
@@ -389,7 +389,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void lstDirectoriosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDirectoriosValueChanged
-        // TODO add your handling code here:
+        // Te muestra los datos de un directorio seleccionado
       if(!lstDirectorios.isSelectionEmpty()){
         String seleccion = lstDirectorios.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;       
@@ -408,6 +408,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lstOcultos.clearSelection();
       
       lstDirectorios.addMouseListener(new java.awt.event.MouseAdapter() {
+          /**
+           * Evento de doble click que ingresa al directorio seleccionado
+           * @param e 
+           */
       public void mouseClicked(java.awt.event.MouseEvent e) {
       if(e.getClickCount()==2){
          String ruta1=txtRuta.getText();
@@ -429,7 +433,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lstDirectoriosValueChanged
 
     private void lstArchivosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstArchivosValueChanged
-        // TODO add your handling code here:
+        // Te muestra los datos de un archivo seleccionado
          if(!lstArchivos.isSelectionEmpty()){
         String seleccion = lstArchivos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;
@@ -450,7 +454,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lstArchivosValueChanged
 
     private void lstOcultosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstOcultosValueChanged
-        // TODO add your handling code here:
+        // Te muestra los datos del archivo Oculto seleccionado
          if(!lstOcultos.isSelectionEmpty()){
         String seleccion = lstOcultos.getSelectedValue().toString();
         String rutaCompleta=ruta+"\\"+seleccion;

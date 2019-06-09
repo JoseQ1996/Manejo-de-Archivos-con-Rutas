@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
  * @author José Quinde
  */
 public class RutaNoExistenteException extends Exception{
-
+/**
+ * Te devuelve un mensaje en la excepcion que la ruta no existe
+ */
     public RutaNoExistenteException() {
        super ("La ruta ingresada no existe") ;
     }
