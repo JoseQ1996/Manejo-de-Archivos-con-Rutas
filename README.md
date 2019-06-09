@@ -54,7 +54,7 @@ Cabe recalcar que solo se hecho el manejo de Directorios y el cómo crear archiv
 
 La excepción creada en este proyecto es la siguiente.
  
-Esta excepción nos sirve para poder controlar la ruta ingresada, en el caso de que no exista nos dará un error con el mensaje “la ruta ingresada no existe”. 
+Esta excepción nos sirve para poder controlar la ruta ingresada, en el caso de que no exista nos dará un error con el mensaje *“la ruta ingresada no existe”.*
 
 ![image](https://user-images.githubusercontent.com/49071271/59163790-20839800-8acb-11e9-81b1-f351ab9a0638.png)
 
